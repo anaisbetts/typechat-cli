@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import dotenv from 'dotenv'
 import fs from 'fs'
 import { createJsonTranslator, createLanguageModel } from 'typechat'
@@ -65,7 +67,7 @@ export async function main(argv: string[]): Promise<number> {
       demandOption: false,
     })
     .usage(
-      'Usage: $0 -s [schema] [input 1] [input 2] ... - input can be raw text, or a filename',
+      'Usage: typechat-cli -s [schema] [input 1] [input 2] ... - inputs can be raw text or a filename',
     )
     .help()
     .alias('help', 'h')
