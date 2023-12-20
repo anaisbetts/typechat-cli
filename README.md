@@ -1,4 +1,4 @@
-## TypeChat for the CLI
+## TypeChat for the command line
 
 This is a utility application that wraps the [TypeChat](https://github.com/microsoft/typechat) library and puts it in a command-line convenient for doing various repetitive AI-based tasks. Here's an example:
 
