@@ -3,13 +3,13 @@
 This is a utility application that wraps the [TypeChat](https://github.com/microsoft/typechat) library and puts it in a command-line convenient for doing various repetitive AI-based tasks. Here's an example:
 
 ```bash
-$ npx typechat-cli@beta -s ./example/sentiment-schema.ts "This is cool and you are cool too"
+$ npx typechat-cli -s ./example/sentiment-schema.ts "This is cool and you are cool too"
 {
   "sentiment": "positive"
 }
 ```
 
-The output of the command is a JSON object that conforms to the schema you give. Here's an example schema:
+The output of the command is a JSON object that conforms to the schema you give. Here's the example schema above, `sentiment-schema.ts`:
 
 ```ts
 export interface ResponseShape {
