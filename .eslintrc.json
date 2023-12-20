@@ -1,0 +1,8 @@
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+
+  // Use Logging functions instead!
+  "rules": {
+    "no-console": "error"
+  }
+}

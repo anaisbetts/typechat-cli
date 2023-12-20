@@ -1,0 +1,24 @@
+{
+  "name": "typechat-cli",
+  "version": "0.0.1",
+  "description": "CLI version of TypeChat",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ani Betts <anais@anaisbetts.org>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ts-node": "^10.9.2",
+    "typechat": "^0.0.10",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/yargs": "^17.0.32",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "prettier-plugin-organize-imports": "^3.2.4"
+  }
+}
