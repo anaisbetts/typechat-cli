@@ -37,7 +37,8 @@ export interface ResponseShape {
 You might use it like this:
 
 ```bash
-$ npx typechat-cli -s ./example/links-schema.ts ./file1.md ./file2.md ./file3.md
+## Extract all of the links from our docs
+$ npx typechat-cli -s ./example/links-schema.ts ./docs/**/*.md
 ```
 
 typechat-cli will dump a single JSON array out containing all of the results, in the same order as the files given.
