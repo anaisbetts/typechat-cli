@@ -1,6 +1,6 @@
 {
   "name": "typechat-cli",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "CLI version of TypeChat",
   "bin": {
     "typechat-cli": "./dist/index.js"
