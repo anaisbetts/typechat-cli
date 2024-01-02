@@ -82,7 +82,13 @@ export async function main(argv: string[]): Promise<number> {
 
   let allResults: object[] = []
 
-  for (const prompt of opts._.map(paramToTextPrompt)) {
+  let inputs = opts._
+  if (inputs.length === 0) {
+    console.error('No input provided, reading from stdin...')
+    inputs = [await readStreamToString(process.stdin)]
+  }
+
+  for (let { filename, text } of inputs.map(paramToTextPrompt)) {
     if (opts.verbose) {
       console.log(`Using prompt: ${prompt}`)
     }
