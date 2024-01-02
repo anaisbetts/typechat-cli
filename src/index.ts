@@ -31,10 +31,11 @@ function paramToTextPrompt(input: string | number) {
   try {
     if (fs.existsSync(inTxt)) {
       inputText = fs.readFileSync(inTxt, 'utf8')
+      return { filename: fs.realpathSync(inTxt), text: inputText }
     }
   } catch {}
 
-  return inputText
+  return { filename: null, text: inTxt }
 }
 
 export async function main(argv: string[]): Promise<number> {
@@ -66,6 +67,12 @@ export async function main(argv: string[]): Promise<number> {
       type: 'boolean',
       demandOption: false,
     })
+    .option('with-file', {
+      describe:
+        'If true, JSON output will be wrapped in an object that gives the filename and original input text',
+      type: 'boolean',
+      default: false,
+    })
     .usage(
       'Usage: typechat-cli -s [schema] [input 1] [input 2] ... - inputs can be raw text or a filename',
     )
@@ -94,14 +101,22 @@ export async function main(argv: string[]): Promise<number> {
     }
 
     translator.attemptRepair = true
-    const result = await translator.translate(prompt)
+    const result = await translator.translate(text)
 
     if (!result.success) {
       console.error(result.message)
       return -1
     }
 
-    allResults.push(result.data)
+    if (opts.withFile) {
+      allResults.push({
+        filename: filename,
+        input: text,
+        data: result.data,
+      })
+    } else {
+      allResults.push(result.data)
+    }
   }
 
   if (allResults.length === 1) {
