@@ -46,3 +46,34 @@ typechat-cli will dump a single JSON array out containing all of the results, in
 ### What model does this use?
 
 By default, this uses `gpt-4` though you can override it with the `-m` parameter. For many tasks, `gpt-3.5-turbo` will work and is _much_ cheaper!
+
+### Getting more verbose information
+
+Sometimes when operating with an entire directory of files, it can be convenient to get the input file alongside the data. If the `--with-text` flag is passed in, the data will be returned in the form:
+
+```ts
+interface ReturnedData {
+  filename: string | null // The fully qualified path to the input file, or null if prompt text was directly given
+  input: string // The contents of the input file or prompt text
+  data: ResponseShape // The data returned
+}
+```
+
+### Piping data in from stdin
+
+You can also pipe data in from stdin, which will be used as the input text. For example:
+
+```bash
+$ echo "Yes this is very cool" | npx ts-node ./src/index.ts -s ./example/sentiment-schema.ts
+
+No input provided, reading from stdin...
+{
+  "sentiment": "positive"
+}
+```
+
+### How do I run this from the Git repo?
+
+```bash
+$ npx ts-node ./src/index.ts -s ./example/sentiment-schema.ts "This is cool and you are cool too"
+```
