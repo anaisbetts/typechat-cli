@@ -51,23 +51,15 @@ This example from the TypeChat repo, shows just how complex you can make schemas
 $ npx typechat-cli -s ./example/pizza-shop-schema.ts "I want three pizzas, one with mushrooms and the other two with sausage. Make one sausage a small. And give me a whole Greek and a Pale Ale. And give me a Mack and Jacks."
 ```
 
+Output:
+
 ```json
 {
   "items": [
     { "itemType": "pizza", "addedToppings": ["mushrooms"], "quantity": 1 },
     { "itemType": "pizza", "addedToppings": ["sausage"], "quantity": 1 },
-    {
-      "itemType": "pizza",
-      "size": "small",
-      "addedToppings": ["sausage"],
-      "quantity": 1
-    },
-    {
-      "itemType": "salad",
-      "portion": "whole",
-      "style": "Greek",
-      "quantity": 1
-    },
+    { "itemType": "pizza", "size": "small", "addedToppings": ["sausage"], "quantity": 1 },
+    { "itemType": "salad", "portion": "whole", "style": "Greek", "quantity": 1 },
     { "itemType": "beer", "kind": "Pale Ale", "quantity": 1 },
     { "itemType": "beer", "kind": "Mack and Jacks", "quantity": 1 }
   ]
