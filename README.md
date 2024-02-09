@@ -43,6 +43,37 @@ $ npx typechat-cli -s ./example/links-schema.ts ./docs/**/*.md
 
 typechat-cli will dump a single JSON array out containing all of the results, in the same order as the files given.
 
+### A More Complex Example
+
+This example from the TypeChat repo, shows just how complex you can make schemas and still get usable output. This example typically will have issues on less capable LLMs but works with GPT-4:
+
+```sh
+$ npx typechat-cli -s ./example/pizza-shop-schema.ts "I want three pizzas, one with mushrooms and the other two with sausage. Make one sausage a small. And give me a whole Greek and a Pale Ale. And give me a Mack and Jacks."
+```
+
+```json
+{
+  "items": [
+    { "itemType": "pizza", "addedToppings": ["mushrooms"], "quantity": 1 },
+    { "itemType": "pizza", "addedToppings": ["sausage"], "quantity": 1 },
+    {
+      "itemType": "pizza",
+      "size": "small",
+      "addedToppings": ["sausage"],
+      "quantity": 1
+    },
+    {
+      "itemType": "salad",
+      "portion": "whole",
+      "style": "Greek",
+      "quantity": 1
+    },
+    { "itemType": "beer", "kind": "Pale Ale", "quantity": 1 },
+    { "itemType": "beer", "kind": "Mack and Jacks", "quantity": 1 }
+  ]
+}
+```
+
 ### How do I choose OpenAI or Ollama?
 
 typechat-cli works with both OpenAI as well as [Ollama](https://ollama.ai/). Setting the appropriate environment variable will choose which one to use:
