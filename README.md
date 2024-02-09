@@ -1,4 +1,4 @@
-## TypeChat for the command line
+## TypeChat for the command line, on OpenAI and Ollama
 
 This is a utility application that wraps the [TypeChat](https://github.com/microsoft/typechat) library and puts it in a command-line convenient for doing various repetitive AI-based tasks. Here's an example:
 
@@ -43,9 +43,16 @@ $ npx typechat-cli -s ./example/links-schema.ts ./docs/**/*.md
 
 typechat-cli will dump a single JSON array out containing all of the results, in the same order as the files given.
 
+### How do I choose OpenAI or Ollama?
+
+typechat-cli works with both OpenAI as well as [Ollama](https://ollama.ai/). Setting the appropriate environment variable will choose which one to use:
+
+- `OLLAMA_ENDPOINT` - the base URL to use for Ollama, `http://localhost:11434` is the usual one that Ollama runs on
+- `OPENAI_API_KEY` - the API key to use for OpenAI
+
 ### What model does this use?
 
-By default, this uses `gpt-4` though you can override it with the `-m` parameter. For many tasks, `gpt-3.5-turbo` will work and is _much_ cheaper!
+By default, this uses `gpt-4` for OpenAI and `llama2` for Ollama, though you can override it with the `-m` parameter. For many tasks, `gpt-3.5-turbo` will work and is _much_ cheaper if using OpenAI!
 
 ### Getting more verbose information
 

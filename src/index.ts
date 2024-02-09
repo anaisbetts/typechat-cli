@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
+import { createJsonTranslator, createLanguageModel } from '@anaisbetts/typechat'
+import { createTypeScriptJsonValidator } from '@anaisbetts/typechat/ts'
+
 import dotenv from 'dotenv'
 import fs from 'fs'
-import { createJsonTranslator, createLanguageModel } from 'typechat'
 import yargs from 'yargs'
 
 dotenv.config()
@@ -39,6 +41,7 @@ function paramToTextPrompt(input: string | number) {
 }
 
 export async function main(argv: string[]): Promise<number> {
+  const useOllama = !!process.env.OLLAMA_ENDPOINT
   const opts = await yargs(argv)
     .option('schema', {
       alias: 's',
@@ -56,9 +59,9 @@ export async function main(argv: string[]): Promise<number> {
     })
     .option('model', {
       alias: 'm',
-      describe: 'The model to use. Defaults to GPT-4',
+      describe: 'The model to use. Defaults to GPT-4 (or llama2 on Ollama)',
       type: 'string',
-      default: 'gpt-4',
+      default: useOllama ? 'llama2' : 'gpt-4',
       demandOption: false,
     })
     .option('verbose', {
@@ -80,12 +83,16 @@ export async function main(argv: string[]): Promise<number> {
     .alias('help', 'h')
     .parse()
 
-  const lm = createLanguageModel({ OPENAI_MODEL: opts.model, ...process.env })
-  const translator = createJsonTranslator(
-    lm,
+  const lm = createLanguageModel({
+    OPENAI_MODEL: opts.model,
+    OLLAMA_MODEL: opts.model,
+    ...process.env,
+  })
+  const v = createTypeScriptJsonValidator(
     fs.readFileSync(opts.schema, 'utf8'),
     opts.type,
   )
+  const translator = createJsonTranslator(lm, v)
 
   let allResults: object[] = []
 
@@ -96,16 +103,16 @@ export async function main(argv: string[]): Promise<number> {
   }
 
   for (let { filename, text } of inputs.map(paramToTextPrompt)) {
-    if (opts.verbose) {
-      console.log(`Using prompt: ${prompt}`)
-    }
-
     translator.attemptRepair = true
     const result = await translator.translate(text)
 
     if (!result.success) {
       console.error(result.message)
       return -1
+    }
+
+    if (opts.verbose) {
+      console.log(`Using prompt: ${text}`)
     }
 
     if (opts.withFile) {
