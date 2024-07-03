@@ -1,4 +1,4 @@
-## TypeChat for the command line, on OpenAI and Ollama
+## TypeChat for the command line, on OpenAI, Ollama, and Anthropic
 
 This is a utility application that wraps the [TypeChat](https://github.com/microsoft/typechat) library and puts it in a command-line convenient for doing various repetitive AI-based tasks. Here's an example:
 
@@ -58,24 +58,35 @@ Output:
   "items": [
     { "itemType": "pizza", "addedToppings": ["mushrooms"], "quantity": 1 },
     { "itemType": "pizza", "addedToppings": ["sausage"], "quantity": 1 },
-    { "itemType": "pizza", "size": "small", "addedToppings": ["sausage"], "quantity": 1 },
-    { "itemType": "salad", "portion": "whole", "style": "Greek", "quantity": 1 },
+    {
+      "itemType": "pizza",
+      "size": "small",
+      "addedToppings": ["sausage"],
+      "quantity": 1
+    },
+    {
+      "itemType": "salad",
+      "portion": "whole",
+      "style": "Greek",
+      "quantity": 1
+    },
     { "itemType": "beer", "kind": "Pale Ale", "quantity": 1 },
     { "itemType": "beer", "kind": "Mack and Jacks", "quantity": 1 }
   ]
 }
 ```
 
-### How do I choose OpenAI or Ollama?
+### How do I choose which AI service to use?
 
-typechat-cli works with both OpenAI as well as [Ollama](https://ollama.ai/). Setting the appropriate environment variable will choose which one to use:
+typechat-cli works with OpenAI, Anthropic's Claude, as well as [Ollama](https://ollama.ai/). Setting the appropriate environment variable will choose which one to use:
 
 - `OLLAMA_ENDPOINT` - the base URL to use for Ollama, `http://localhost:11434` is the usual one that Ollama runs on
 - `OPENAI_API_KEY` - the API key to use for OpenAI
+- `ANTHROPIC_API_KEY` - the API key to use for Claude
 
 ### What model does this use?
 
-By default, this uses `gpt-4` for OpenAI and `llama2` for Ollama, though you can override it with the `-m` parameter. For many tasks, `gpt-3.5-turbo` will work and is _much_ cheaper if using OpenAI!
+By default, this uses `gpt-4` for OpenAI, `llama2` for Ollama, and `claude-2.1` for Anthropic, though you can override it with the `-m` parameter. For many tasks, `gpt-3.5-turbo` will work and is _much_ cheaper if using OpenAI!
 
 ### Getting more verbose information
 
