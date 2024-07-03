@@ -9,5 +9,4 @@
     "esModuleInterop": true
   },
   "include": ["src"],
-  "exclude": ["examples"]
 }

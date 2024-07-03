@@ -42,6 +42,13 @@ function paramToTextPrompt(input: string | number) {
 
 export async function main(argv: string[]): Promise<number> {
   const useOllama = !!process.env.OLLAMA_ENDPOINT
+  const useAnthropic = !!process.env.ANTHROPIC_API_KEY
+  const defaultModel = useOllama
+    ? 'llama2'
+    : useAnthropic
+      ? 'claude-2.1'
+      : 'gpt-4'
+
   const opts = await yargs(argv)
     .option('schema', {
       alias: 's',
@@ -59,9 +66,10 @@ export async function main(argv: string[]): Promise<number> {
     })
     .option('model', {
       alias: 'm',
-      describe: 'The model to use. Defaults to GPT-4 (or llama2 on Ollama)',
+      describe:
+        'The model to use. Defaults to GPT-4 (or llama2 on Ollama, claude-2.1 on Anthropic)',
       type: 'string',
-      default: useOllama ? 'llama2' : 'gpt-4',
+      default: defaultModel,
       demandOption: false,
     })
     .option('verbose', {
@@ -86,6 +94,7 @@ export async function main(argv: string[]): Promise<number> {
   const lm = createLanguageModel({
     OPENAI_MODEL: opts.model,
     OLLAMA_MODEL: opts.model,
+    ANTHROPIC_MODEL: opts.model,
     ...process.env,
   })
   const v = createTypeScriptJsonValidator(

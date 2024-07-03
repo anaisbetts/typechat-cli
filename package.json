@@ -14,7 +14,7 @@
   "author": "Ani Betts <anais@anaisbetts.org>",
   "license": "MIT",
   "dependencies": {
-    "@anaisbetts/typechat": "^0.1.0-ollama.3",
+    "@anaisbetts/typechat": "^0.1.0-ollama.4",
     "dotenv": "^16.3.1",
     "typechat": "^0.0.10",
     "yargs": "^17.7.2"
